@@ -19,7 +19,7 @@ $(NAME): $(OBJS)
 	@($(CC) $(CFLAGS) $(HEADERS) -o $@ $^)
 	@echo "--------------------------------------------------"
 	@echo "          Compilation of $@ has finish            "
-	@echo "               $@ : v 1.0 - By Tybbow            "
+	@echo "               $@ : v 1.1 - By Tybbow            "
 	@echo "--------------------------------------------------"
 
 all : $(NAME)
