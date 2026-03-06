@@ -21,7 +21,7 @@ void	initPseudoHeader(t_mss **mss)
 	(*mss)->psdheader.length = htons(sizeof(t_tcp) + sizeof(t_otcp));
     (*mss)->vmss->kind = 2;
     (*mss)->vmss->len = 4;
-    (*mss)->vmss->mss = htons(1330);
+    (*mss)->vmss->mss = htons(2);
 }
 
 void	initIP(t_mss **mss)
@@ -43,7 +43,7 @@ void	initIP(t_mss **mss)
 void	initTCP(t_mss **mss)
 {
 	(*mss)->tcph->source = htons(43219);
-    (*mss)->tcph->dest = htons((*mss)->port);
+    (*mss)->tcph->dest = htons(80);
     (*mss)->tcph->seq = htonl(12);
     (*mss)->tcph->ack_seq = 0;
     (*mss)->tcph->doff = sizeof(t_tcp) / 4 + 1;
@@ -63,6 +63,6 @@ void	initMSS(t_mss **mss)
 	initPseudoHeader(mss);
 	initIP(mss);
 	initTCP(mss);
-    stats.min = 999999999;
+    stats.min = DBL_MAX;
     stats.max = 0;
 }

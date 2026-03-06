@@ -6,7 +6,7 @@
 /*   By: tiskow <tiskow@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/20 13:53:26 by tiskow            #+#    #+#             */
-/*   Updated: 2018/11/04 14:24:22 by tiskow           ###   ########.fr       */
+/*   Updated: 2018/09/06 16:56:53 by tiskow           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@
 #include<arpa/inet.h>
 #include<netinet/tcp.h>
 #include<netinet/ip.h>
+#include<float.h>
 
 typedef struct	s_mss 		t_mss;
 typedef struct 	s_psdheader t_pshd;
@@ -90,8 +91,8 @@ struct		s_mss
 };
 
 
-volatile    t_stats     stats;
-int 	    getIPLocal(char **tmp);
+extern t_stats     stats;
+char	    *getIPLocal();
 double      time_diff(struct timeval x , struct timeval y);
 void	    start_thread(t_mss *mss, size_t count);
 void        statistics(double value);

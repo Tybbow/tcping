@@ -12,6 +12,8 @@
 
 #include "../includes/tcping.h"
 
+t_stats stats;
+
 int     usage()
 {
     printf("Usage :\t./tcping [-d destination addr] [-s source addr]\n");
@@ -30,11 +32,14 @@ int		checkOpt(int ac, char **av, t_mss **mss)
 	(*mss)->port = 80;
     (*mss)->interval = 1;
     (*mss)->count = -1;
-    char *tmp = (*mss)->addr_src;
-    if (!getIPLocal(&tmp))
+    if (getIPLocal() == NULL)
     {
         printf(COLOR_RED "[-] " COLOR_RESET "No interface found.. Please use -s\n");
         return (0);
+    }
+    else
+    {
+        strcpy((*mss)->addr_src, getIPLocal());
     }
 	memset((*mss)->addr_dst, 0, 20);
 	while (i < ac)
@@ -78,7 +83,7 @@ void	launch_checkMSS(t_mss **mss)
         printf ("Error setting IP_HDRINCL. Error number : %d . Error message : %s \n" , errno , strerror(errno));
         exit(0);
     }
-    strcpy((char *)stats.host, (*mss)->addr_dst);
+    strcpy(stats.host, (*mss)->addr_dst);
 	initMSS(mss);
     signal(SIGINT, (void (*)(int))handler);
 	while ((*mss)->count)
@@ -98,7 +103,7 @@ t_mss	*initStruct()
 	t_mss *mss;
 
 	mss = NULL;
-	mss = (t_mss *)malloc(sizeof(t_mss));
+	mss = malloc(sizeof(t_mss));
 	if (!mss)
 		return (NULL);
 	memset(mss->datagram, 0, 4096);

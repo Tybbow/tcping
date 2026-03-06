@@ -16,11 +16,10 @@ void	sendSyn(t_mss *mss)
 {
 	struct sockaddr_in  dst;
 
-    bzero((char *) &dst, sizeof(dst));
 	dst.sin_family = AF_INET;
 	dst.sin_addr.s_addr = inet_addr(mss->addr_dst);
-    dst.sin_port = htons(mss->port);
-    mss->tcph->check = 0;
+	mss->tcph->dest = htons(mss->port);
+	mss->tcph->check = 0;
 
 	memcpy(&mss->psdheader.tcp, mss->tcph, sizeof(t_pshd));
 	mss->tcph->check = csum((u_short *)&mss->psdheader, sizeof(t_pshd));

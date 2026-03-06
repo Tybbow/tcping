@@ -20,7 +20,6 @@ void	*threadSniffer(void *arg)
 {
 	struct timeval *after;
 	t_mss *mss = (t_mss*)arg;
-
 	if (receive_ack(mss))
 		pthread_cancel(myThreadSleep);
 	after = malloc(sizeof(struct timeval));

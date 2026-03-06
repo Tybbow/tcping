@@ -21,7 +21,7 @@ int		process_packet(unsigned char *buffer, t_mss *mss)
 	{
 		iphdrlen = iph->ihl*4;
 		struct tcphdr *tcph = (struct tcphdr *)(buffer + iphdrlen);
-		if (tcph->syn == 1 && tcph->ack == 1 && iph->saddr == inet_addr(mss->addr_dst) && tcph->dest == mss->tcph->source)
+		if ((tcph->syn == 1 || tcph->rst == 1) && tcph->ack == 1 && iph->saddr == inet_addr(mss->addr_dst) && tcph->dest == mss->tcph->source)
 		{
 			fflush(stdout);
 			return (1);

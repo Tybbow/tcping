@@ -12,11 +12,11 @@
 
 #include "../includes/tcping.h"
 
-int	    getIPLocal(char **tmp)
+char	*getIPLocal()
 {
 	struct ifaddrs *ifaddr, *ifa;
     if (getifaddrs(&ifaddr) == -1)
-        return (0);
+        return (NULL);
     for (ifa = ifaddr; ifa != NULL; ifa = ifa->ifa_next)
     {
         if (ifa->ifa_addr != NULL && ifa->ifa_addr->sa_family == AF_INET)
@@ -24,13 +24,12 @@ int	    getIPLocal(char **tmp)
             if (!strcmp(ifa->ifa_name, "en0") || !strcmp(ifa->ifa_name, "eth0") || 
             !strcmp(ifa->ifa_name, "enp0s3"))
             {
-                strcpy(*tmp, inet_ntoa(((struct sockaddr_in *)ifa->ifa_addr)->sin_addr));
                 freeifaddrs(ifaddr);
-                return (1);
+                return (inet_ntoa(((struct sockaddr_in *)ifa->ifa_addr)->sin_addr));
             }
         }
     }
-    return (0);
+    return (NULL);
 }
 
 unsigned short csum(unsigned short *ptr, int nbytes) 
