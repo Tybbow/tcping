@@ -199,8 +199,7 @@ Unauthorized packet injection may violate local laws and network policies.
 
 ## 👤 Author
 
-**Tybbow** (tiskow@student.42.fr) — v1.0  
-🔗 [github.com/Tybbow/tcping](https://github.com/Tybbow/tcping)
+**Tybbow** — v1.0  
 
 ---
 
